@@ -28,11 +28,13 @@ func main() {
 	r.SetTrustedProxies(nil)
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000", "http://localhost:5173"},
+		AllowOrigins:     []string{"http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:5173", "http://127.0.0.1:5173"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
 		AllowCredentials: true,
 	}))
+
+	r.Static("/uploads", "./uploads")
 
 	api := r.Group("/api")
 	{
@@ -54,6 +56,7 @@ func main() {
 		{
 			userRoutes.GET("/aset", controllers.GetAllAset)
 			userRoutes.GET("/aset/:id", controllers.GetAsetByID)
+			userRoutes.POST("/upload-aset", controllers.UploadFotoAset)
 		}
 
 		teknisiRoutes := api.Group("/teknisi")

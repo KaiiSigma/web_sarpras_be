@@ -42,7 +42,6 @@ func AuthMiddleware(roles ...string) gin.HandlerFunc {
 			return
 		}
 
-		// Cek apakah role user ada di dalam daftar roles yang diizinkan
 		roleAllowed := false
 		for _, role := range roles {
 			if userRole == role {
